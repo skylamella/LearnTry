@@ -3,6 +3,7 @@ E:\git_repositories\lucky_maven\src\main\java\cn\xiaoji\lucky\dao\LuckyDao.java
 E:\git_repositories\lucky_maven\src\main\java\cn\xiaoji\lucky\dao\UserDao.java
 E:\git_repositories\lucky_maven\src\main\java\cn\xiaoji\lucky\entity\Lucky.java
 E:\git_repositories\lucky_maven\src\main\java\cn\xiaoji\lucky\service\impl\UserServiceImpl.java
+E:\git_repositories\lucky_maven\src\main\java\cn\xiaoji\lucky\action\LuckyAction.java
 E:\git_repositories\lucky_maven\src\main\java\cn\xiaoji\lucky\service\impl\LuckyServiceImpl.java
 E:\git_repositories\lucky_maven\src\main\java\cn\xiaoji\lucky\entity\Result.java
 E:\git_repositories\lucky_maven\src\main\java\cn\xiaoji\lucky\action\OperationAction.java
@@ -19,7 +20,6 @@ E:\git_repositories\lucky_maven\src\main\java\cn\xiaoji\lucky\action\IndexAction
 E:\git_repositories\lucky_maven\src\main\java\cn\xiaoji\lucky\dao\impl\UserDaoImpl.java
 E:\git_repositories\lucky_maven\src\main\java\cn\xiaoji\lucky\entity\User.java
 E:\git_repositories\lucky_maven\src\main\java\cn\xiaoji\lucky\service\UserService.java
-E:\git_repositories\lucky_maven\src\main\java\cn\xiaoji\lucky\interceptor\LuckyInterceptor.java
 E:\git_repositories\lucky_maven\src\main\java\cn\xiaoji\lucky\utils\CommonUse.java
 E:\git_repositories\lucky_maven\src\main\java\cn\xiaoji\lucky\action\CreateCheckImageAction.java
 E:\git_repositories\lucky_maven\src\main\java\cn\xiaoji\lucky\utils\PageBean.java

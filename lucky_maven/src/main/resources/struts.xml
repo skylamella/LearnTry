@@ -43,7 +43,7 @@
 		</action>
 	</package>
 	<package name="lucky" namespace="/lucky" extends="struts-default">
-		<action name="*" class="frameAction" method="{1}">
+		<action name="*" class="luckyAction" method="{1}">
 			<result name="success">/WEB-INF/lucky/index.jsp</result>
 		</action>
 	</package>
@@ -57,7 +57,7 @@
 		</action>
 	</package>
 	<package name="ajax" namespace="/aj" extends="json-default">
-		<action name="*" class="ajaxAction" method="{1}{2}">
+		<action name="*" class="ajaxAction" method="{1}">
 			<result name="success" type="json">
 				<param name="root">jsonArray</param>
 			</result>

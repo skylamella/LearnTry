@@ -59,7 +59,7 @@ public class CommonUse {
 	 * @param str 被检测的字符串
 	 * @return
 	 */
-	public static boolean nullStringCheck(String str){
+	public static Boolean nullStringCheck(String str){
 		if(str != null && str != ""){
 			return true;
 		}else{

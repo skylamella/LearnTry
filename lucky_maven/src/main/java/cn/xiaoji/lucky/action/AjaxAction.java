@@ -94,7 +94,7 @@ public class AjaxAction extends ActionSupport {
 		String Code = CommonUse.MD5Password(openCode);
 		Lucky lucky = luckyService.checkCode(Code);
 		if(lucky != null){
-			String url = "/lucky/lucky/"+Code+".xhtml";
+			String url = "/lucky/lucky.xhtml?code="+Code;
 			map.put("code", "success");
 			map.put("url", url);
 		}else{
