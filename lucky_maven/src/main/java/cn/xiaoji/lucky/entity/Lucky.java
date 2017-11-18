@@ -8,6 +8,7 @@ public class Lucky {
 	private Date lucky_create;
 	private int lucky_chk;
 	private Integer user_id;
+	private String lucky_pwd;
 
 	public Integer getLucky_id() {
 		return lucky_id;
@@ -47,5 +48,13 @@ public class Lucky {
 
 	public void setUser_id(Integer user_id) {
 		this.user_id = user_id;
+	}
+
+	public String getLucky_pwd() {
+		return lucky_pwd;
+	}
+
+	public void setLucky_pwd(String lucky_pwd) {
+		this.lucky_pwd = lucky_pwd;
 	}
 }

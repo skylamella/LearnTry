@@ -20,5 +20,8 @@
         <property name="user_id" type="java.lang.Integer" not-null="true">
             <column name="USER_ID" />
         </property>
+        <property name="lucky_pwd" type="java.lang.String" not-null="true">
+            <column name="LUCKY_PWD" />
+        </property>
     </class>
 </hibernate-mapping>
