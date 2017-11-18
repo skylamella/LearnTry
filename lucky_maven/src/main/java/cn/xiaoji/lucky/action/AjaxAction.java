@@ -44,43 +44,42 @@ public class AjaxAction extends ActionSupport {
 	private MailService mailService;
 
 	public String emailCheck() {
+		HashMap<String, String> map = new HashMap<String, String>();
 		User u = userService.checkEmail(email);
 		if (u.getUser_name() != null && u.getUser_name() != "") {
-			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("code", "success");
-			jsonArray = JSON.toJSONString(map);
 		} else {
-			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("code", "false");
-			jsonArray = JSON.toJSONString(map);
 		}
+		jsonArray = JSON.toJSONString(map);
 		return SUCCESS;
 	}
 
 	public String emailCreate() {
+		HashMap<String, String> map = new HashMap<String, String>();
 		User u = userService.checkEmail(email);
 		String emailAccount = "admin@skyln.cn";
 		Mail mail = CommonUse.createCheckEmail(emailAccount, email, u.getUser_name());
 		try {
 			mailService.sendMail(mail);
-			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("code", "success");
 			map.put("CheckCode", mail.getCheckCode());
-			jsonArray = JSON.toJSONString(map);
 		} catch (Exception e) {
-			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("code", "false");
-			jsonArray = JSON.toJSONString(map);
 		}
+		jsonArray = JSON.toJSONString(map);
 		return SUCCESS;
 	}
 
 	public String forgetpwd() {
-		System.out.println(user.getUser_pwd());
 		HashMap<String, String> map = new HashMap<String, String>();
-		if(user.getUser_pwd().equals("123456")){
+		String newPWD = CommonUse.MD5Password(user.getUser_pwd());
+		User u = userService.checkEmail(email);
+		u.setUser_pwd(newPWD);
+		try {
+			userService.update(u);
 			map.put("code", "success");
-		}else{
+		} catch (Exception e) {
 			map.put("code", "false");
 		}
 		jsonArray = JSON.toJSONString(map);
