@@ -1,0 +1,11 @@
+0:0:0:0:0:0:0:1 - - [18/Nov/2017:14:00:34 +0800] "GET / HTTP/1.1" 404 5 http-bio-8080-exec-1 178
+0:0:0:0:0:0:0:1 - - [18/Nov/2017:14:00:45 +0800] "GET /NewFile.jsp HTTP/1.1" 200 278 http-bio-8080-exec-4 704
+0:0:0:0:0:0:0:1 - - [18/Nov/2017:15:15:16 +0800] "GET /forgetpwd.jsp HTTP/1.1" 200 5995 http-bio-8080-exec-1 584
+0:0:0:0:0:0:0:1 - - [18/Nov/2017:15:15:16 +0800] "GET /css/pintuer.css HTTP/1.1" 200 113231 http-bio-8080-exec-2 6
+0:0:0:0:0:0:0:1 - - [18/Nov/2017:15:15:16 +0800] "GET /css/admin.css HTTP/1.1" 200 4234 http-bio-8080-exec-3 3
+0:0:0:0:0:0:0:1 - - [18/Nov/2017:15:15:16 +0800] "GET /js/jquery.min.js HTTP/1.1" 200 95962 http-bio-8080-exec-4 5
+0:0:0:0:0:0:0:1 - - [18/Nov/2017:15:15:16 +0800] "GET /js/pintuer.js HTTP/1.1" 200 16856 http-bio-8080-exec-5 4
+0:0:0:0:0:0:0:1 - - [18/Nov/2017:15:15:32 +0800] "POST /aj/ajax_email_Check.xhtml HTTP/1.1" 200 24 http-bio-8080-exec-9 327
+0:0:0:0:0:0:0:1 - - [18/Nov/2017:15:15:33 +0800] "POST /aj/ajax_email_Create.xhtml HTTP/1.1" 200 51 http-bio-8080-exec-10 95
+0:0:0:0:0:0:0:1 - - [18/Nov/2017:15:15:58 +0800] "POST /aj/ajax_forget_pwd.xhtml HTTP/1.1" 200 24 http-bio-8080-exec-10 72
+0:0:0:0:0:0:0:1 - - [18/Nov/2017:15:16:02 +0800] "POST /aj/ajax_forget_pwd.xhtml HTTP/1.1" 200 24 http-bio-8080-exec-10 51

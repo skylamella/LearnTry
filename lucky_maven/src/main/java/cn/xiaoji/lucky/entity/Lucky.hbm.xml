@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-11-12 17:28:09 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="cn.xiaoji.lucky.entity.Lucky" table="LUCKY">
+        <id name="lucky_id" type="java.lang.Integer">
+            <column name="LUCKY_ID" />
+            <generator class="native" />
+        </id>
+        <property name="lucky_title" type="java.lang.String" not-null="true">
+            <column name="LUCKY_TITLE" />
+        </property>
+        <property name="lucky_create" type="java.util.Date" not-null="true">
+            <column name="LUCKY_CREATE" />
+        </property>
+        <property name="lucky_chk" type="int" not-null="true">
+            <column name="LUCKY_CHK" />
+        </property>
+        <property name="user_id" type="java.lang.Integer" not-null="true">
+            <column name="USER_ID" />
+        </property>
+    </class>
+</hibernate-mapping>
