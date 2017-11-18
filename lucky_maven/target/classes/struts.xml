@@ -3,11 +3,6 @@
 	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
-	<bean type="org.apache.struts2.dispatcher.multipart.MultiPartRequest"  
-    name="myRequestParser" class="cn.jx3wujia.utils.RequestParseWrapper"  
-    scope="default" optional="true" />  
-    <constant name="struts.multipart.handler" value="myRequestParser" /> 
-    
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.action.extension" value="xhtml" />
 	<constant name="struts.objectFactory" value="spring" />
@@ -15,57 +10,44 @@
 		<interceptors>
 			<interceptor name="user_chk"
 				class="cn.xiaoji.lucky.interceptor.UserLoginCHKInterceptor" />
-			<interceptor-stack name="jx3_stack">
+			<interceptor-stack name="xiaoji_stack">
 				<interceptor-ref name="user_chk">
 					<param name="includeMethods">user*</param>
 				</interceptor-ref>
 				<interceptor-ref name="defaultStack" />
 			</interceptor-stack>
 		</interceptors>
-		<default-interceptor-ref name="jx3_stack" />
-
+		<default-interceptor-ref name="xiaoji_stack" />
+		
 		<global-results>
 			<result name="index" type="redirect">index.xhtml</result>
 			<result name="home" type="redirect">login.xhtml</result>
 			<result name="adindex" type="redirect">frame_ad_index.xhtml</result>
 			<result name="adhome" type="redirect">/admin/index.jsp</result>
 		</global-results>
-
-		<action name="index" class="indexAction" method="index">
-			<result name="success">/index.jsp</result>
-		</action>
-
-		<action name="login" class="indexAction" method="login">
-			<result name="success">/login.jsp</result>
-		</action>
 		
-		<action name="forgetpwd" class="indexAction" method="forgetpwd">
-			<result name="success">/forgetpwd.jsp</result>
+		<action name="*" class="indexAction" method="{1}">
+			<result name="success">/{1}.jsp</result>
 		</action>
 
 		<action name="login_*" class="loginAction" method="{1}">
 		</action>
 
-		<action name="frame_*" class="frameAction" method="{1}">
-			<result name="user">/WEB-INF/frame/{2}.jsp</result>
-			<result name="admin">/WEB-INF/admin/{2}.jsp</result>
-		</action>
-
 		<action name="operation_*" class="operationAction" method="{1}">
 			<result name="success">/WEB-INF/operation/{2}.jsp</result>
 		</action>
-
-		<action name="detail_*" class="detailAction" method="{1}">
-			<result name="success">/WEB-INF/tips.jsp</result>
-			<result name="adpasserror" type="redirect">frame_ad_pass.xhtml</result>
-			<result name="usepasserror" type="redirect">frame_use_pass.xhtml</result>
+	</package>
+	<package name="frame" namespace="/frame" extends="struts-default">
+		<action name="*" class="frameAction" method="{1}">
+			<result name="success">/WEB-INF/frame/{1}.jsp</result>
 		</action>
-		
-		<action name="upload_*" class="uploadAction" method="{1}">
-			<result name="success">/WEB-INF/tips.jsp</result>
-			<result name="test">/test.jsp</result>
+	</package>
+	<package name="lucky" namespace="/lucky" extends="struts-default">
+		<action name="*" class="frameAction" method="{1}">
+			<result name="success">/WEB-INF/lucky/index.jsp</result>
 		</action>
-
+	</package>
+	<package name="check" namespace="/check" extends="struts-default">
 		<action name="CreateCheckImage" class="createCheckImageAction"
 			method="createCHKImage">
 			<result name="success" type="stream">
@@ -73,10 +55,9 @@
 				<param name="inputName">inputStream</param>
 			</result>
 		</action>
-
 	</package>
 	<package name="ajax" namespace="/aj" extends="json-default">
-		<action name="ajax_*_*" class="ajaxAction" method="{1}{2}">
+		<action name="*" class="ajaxAction" method="{1}{2}">
 			<result name="success" type="json">
 				<param name="root">jsonArray</param>
 			</result>

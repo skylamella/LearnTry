@@ -111,13 +111,11 @@
 			<scope>runtime</scope>
 		</dependency>
 		<!-- c3p0 -->
-
 		<dependency>
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
 			<version>0.9.1.2</version>
 		</dependency>
-
 
 		<!-- 导入 struts2 -->
 		<dependency>
@@ -174,6 +172,11 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>1.2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.tuckey</groupId>
+			<artifactId>urlrewritefilter</artifactId>
+			<version>3.2.0</version>
 		</dependency>
 	</dependencies>
 

@@ -55,6 +55,19 @@ public class CommonUse {
 	}
 	
 	/***
+	 * 判断字符串是否为空
+	 * @param str 被检测的字符串
+	 * @return
+	 */
+	public static boolean nullStringCheck(String str){
+		if(str != null && str != ""){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	/***
 	 * 生成数字与小写字母的随机字符串
 	 * @param nums 随机验证码的数量
 	 * @return

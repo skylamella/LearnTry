@@ -81,7 +81,7 @@
 			}
 		}
 		function forgetpwdfun(){
-			var url = "<%=request.getContextPath()%>/aj/ajax_forget_pwd.xhtml";
+			var url = "<%=request.getContextPath()%>/aj/forgetpwd.xhtml";
 			$.ajax({
 				type : "post",
 				url : url,
@@ -107,7 +107,7 @@
 		}
 		function emailCheck(){
 			var receiveEmail = $('#receiveEmail').val();
-		    var url = "<%=request.getContextPath()%>/aj/ajax_email_Check.xhtml";
+		    var url = "<%=request.getContextPath()%>/aj/emailCheck.xhtml";
 			$.ajax({
 				type : "post",
 				url : url,
@@ -130,7 +130,7 @@
 		var lostTime = parseInt(600);//倒计时总秒数量
 		function sendCheckEmail(){
 			var receiveEmail = $('#receiveEmail').val(); 
-			var url = "<%=request.getContextPath()%>/aj/ajax_email_Create.xhtml";
+			var url = "<%=request.getContextPath()%>/aj/emailCreate.xhtml";
 			$('#receiveEmail').attr("readonly","readonly")
 			timer(intDiff);
 			timer2(lostTime);
