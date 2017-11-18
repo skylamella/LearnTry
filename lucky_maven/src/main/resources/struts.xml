@@ -14,7 +14,7 @@
 	<package name="default" namespace="/" extends="struts-default">
 		<interceptors>
 			<interceptor name="user_chk"
-				class="com.xiaoji.lucky.interceptor.UserLoginCHKInterceptor" />
+				class="cn.xiaoji.lucky.interceptor.UserLoginCHKInterceptor" />
 			<interceptor-stack name="jx3_stack">
 				<interceptor-ref name="user_chk">
 					<param name="includeMethods">user*</param>
