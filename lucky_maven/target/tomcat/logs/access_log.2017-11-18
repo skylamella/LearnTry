@@ -9,3 +9,7 @@
 0:0:0:0:0:0:0:1 - - [18/Nov/2017:15:15:33 +0800] "POST /aj/ajax_email_Create.xhtml HTTP/1.1" 200 51 http-bio-8080-exec-10 95
 0:0:0:0:0:0:0:1 - - [18/Nov/2017:15:15:58 +0800] "POST /aj/ajax_forget_pwd.xhtml HTTP/1.1" 200 24 http-bio-8080-exec-10 72
 0:0:0:0:0:0:0:1 - - [18/Nov/2017:15:16:02 +0800] "POST /aj/ajax_forget_pwd.xhtml HTTP/1.1" 200 24 http-bio-8080-exec-10 51
+0:0:0:0:0:0:0:1 - - [18/Nov/2017:19:45:51 +0800] "GET /forgetpwd.jsp HTTP/1.1" 200 5988 http-bio-8080-exec-1 527
+0:0:0:0:0:0:0:1 - - [18/Nov/2017:19:45:54 +0800] "POST /aj/ajax_email_Check.xhtml HTTP/1.1" 200 24 http-bio-8080-exec-4 338
+0:0:0:0:0:0:0:1 - - [18/Nov/2017:19:45:54 +0800] "POST /aj/ajax_email_Create.xhtml HTTP/1.1" 200 51 http-bio-8080-exec-5 178
+0:0:0:0:0:0:0:1 - - [18/Nov/2017:19:46:14 +0800] "POST /aj/ajax_forget_pwd.xhtml HTTP/1.1" 200 24 http-bio-8080-exec-6 127
