@@ -4,7 +4,7 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 	<bean type="org.apache.struts2.dispatcher.multipart.MultiPartRequest"  
-    name="myRequestParser" class="com.jx3wujia.utils.RequestParseWrapper"  
+    name="myRequestParser" class="cn.jx3wujia.utils.RequestParseWrapper"  
     scope="default" optional="true" />  
     <constant name="struts.multipart.handler" value="myRequestParser" /> 
     
