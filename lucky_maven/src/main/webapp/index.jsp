@@ -285,7 +285,7 @@ h1 {
 					success : function(data) {
 						var area = jQuery.parseJSON(data);
 						if(area.code == "success"){
-							var nextURL = area.url;
+							var nextURL = "<%=request.getContextPath()%>"+area.url;
 							alert("开启密码验证成功");
 							window.location.replace(nextURL);
 						}else{

@@ -45,6 +45,7 @@
 	<package name="lucky" namespace="/lucky" extends="struts-default">
 		<action name="*" class="luckyAction" method="{1}">
 			<result name="success">/WEB-INF/lucky/index.jsp</result>
+			<result name="index" type="redirect">/index.xhtml</result>
 		</action>
 	</package>
 	<package name="check" namespace="/check" extends="struts-default">

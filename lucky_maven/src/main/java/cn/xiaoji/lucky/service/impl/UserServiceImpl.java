@@ -1,5 +1,7 @@
 package cn.xiaoji.lucky.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -21,5 +23,20 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void update(User u) {
 		userDao.update(u);
+	}
+
+	@Override
+	public List<User> getAll() {
+		return userDao.findAll();
+	}
+
+	@Override
+	public void save(User u) {
+		userDao.save(u);
+	}
+
+	@Override
+	public List<User> findByIcon(String icon) {
+		return userDao.findByIcon(icon);
 	}
 }

@@ -25,27 +25,32 @@ public abstract class BaseDaoImpl<T> extends HibernateDaoSupport implements Base
 		ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
 		this.clazz = (Class) pt.getActualTypeArguments()[0];
 	}
+
 	@Override
 	public void save(T entity) {
 		getHibernateTemplate().save(entity);
 	}
+
 	@Override
 	public void update(T entity) {
 		getHibernateTemplate().update(entity);
 	}
+
 	@Override
 	public void delete(Integer id) {
 		getHibernateTemplate().delete(findByID(id));
 	}
+
 	@Override
 	public List<T> findAll() {
 		return (List<T>) getHibernateTemplate().execute(new HibernateCallback<List<T>>() {
 			@Override
 			public List<T> doInHibernate(Session session) throws HibernateException {
-				return session.createCriteria(clazz).addOrder(Order.asc(clazz.getSimpleName() + "_id")).list();
+				return session.createCriteria(clazz).list();
 			}
 		});
 	}
+
 	@Override
 	public List<T> findByIDs(final Integer[] ids) {
 		if (ids == null || ids.length == 0) {
@@ -54,11 +59,11 @@ public abstract class BaseDaoImpl<T> extends HibernateDaoSupport implements Base
 		return (List<T>) getHibernateTemplate().execute(new HibernateCallback<List<T>>() {
 			@Override
 			public List<T> doInHibernate(Session session) throws HibernateException {
-				return session.createCriteria(clazz).add(Restrictions.in(clazz.getSimpleName() + "_id", ids))
-						.addOrder(Order.asc(clazz.getSimpleName() + "_id")).list();
+				return session.createCriteria(clazz).add(Restrictions.in(clazz.getSimpleName() + "_id", ids)).list();
 			}
 		});
 	}
+
 	@Override
 	public T findByID(Integer id) {
 		return (T) getHibernateTemplate().execute(new HibernateCallback<T>() {
@@ -68,16 +73,17 @@ public abstract class BaseDaoImpl<T> extends HibernateDaoSupport implements Base
 			}
 		});
 	}
+
 	@Override
 	public List<T> findAllByLimit(final int limitBeginNum, final int limitMaxNum) {
 		return (List<T>) getHibernateTemplate().execute(new HibernateCallback<List<T>>() {
 			@Override
 			public List<T> doInHibernate(Session session) throws HibernateException {
-				return session.createCriteria(clazz).addOrder(Order.asc(clazz.getSimpleName() + "_id"))
-						.setFirstResult(limitBeginNum).setMaxResults(limitMaxNum).list();
+				return session.createCriteria(clazz).setFirstResult(limitBeginNum).setMaxResults(limitMaxNum).list();
 			}
 		});
 	}
+
 	@Override
 	public int getRowCount() {
 		return (int) findAll().size();

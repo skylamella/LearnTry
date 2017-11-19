@@ -4,20 +4,20 @@
 <!-- Generated 2017-11-12 17:28:09 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="cn.xiaoji.lucky.entity.User" table="USER">
-        <id name="user_id" type="java.lang.Integer">
+        <id name="user_id" type="integer">
             <column name="USER_ID" />
             <generator class="native" />
         </id>
-        <property name="user_name" type="java.lang.String" not-null="true">
+        <property name="user_name" type="string" not-null="true">
             <column name="USER_NAME" />
         </property>
-        <property name="user_pwd" type="java.lang.String" not-null="true">
+        <property name="user_pwd" type="string" not-null="true">
             <column name="USER_PWD" />
         </property>
-        <property name="user_icon" type="java.lang.String">
+        <property name="user_icon" type="string">
             <column name="USER_ICON" />
         </property>
-        <property name="user_email" type="java.lang.String" not-null="true">
+        <property name="user_email" type="string" not-null="true">
             <column name="USER_EMAIL" />
         </property>
         <property name="user_chk" type="int" not-null="true">

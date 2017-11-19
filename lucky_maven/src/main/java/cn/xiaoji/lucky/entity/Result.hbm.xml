@@ -4,17 +4,17 @@
 <!-- Generated 2017-11-12 17:28:09 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="cn.xiaoji.lucky.entity.Result" table="RESULT">
-        <id name="result_id" type="java.lang.Integer">
+        <id name="result_id" type="integer">
             <column name="RESULT_ID" />
             <generator class="native" />
         </id>
-        <property name="user_id" type="java.lang.Integer" not-null="true">
+        <property name="user_id" type="integer" not-null="true">
             <column name="USER_ID" />
         </property>
-        <property name="prize_id" type="java.lang.Integer" not-null="true">
+        <property name="prize_id" type="integer" not-null="true">
             <column name="PRIZE_ID" />
         </property>
-        <property name="lucky_id" type="java.lang.Integer" not-null="true">
+        <property name="lucky_id" type="integer" not-null="true">
             <column name="LUCKY_ID" />
         </property>
     </class>

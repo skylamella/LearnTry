@@ -1,5 +1,7 @@
 package cn.xiaoji.lucky.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -19,6 +21,16 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 			@Override
 			public User doInHibernate(Session session) throws HibernateException {
 				return (User)session.createCriteria(clazz).add(Restrictions.eq("user_email", user_email)).uniqueResult();
+			}
+		});
+	}
+
+	@Override
+	public List<User> findByIcon(final String icon) {
+		return getHibernateTemplate().execute(new HibernateCallback<List<User>>() {
+			@Override
+			public List<User> doInHibernate(Session session) throws HibernateException {
+				return (List<User>)session.createCriteria(clazz).add(Restrictions.eq("user_icon", icon)).list();
 			}
 		});
 	}

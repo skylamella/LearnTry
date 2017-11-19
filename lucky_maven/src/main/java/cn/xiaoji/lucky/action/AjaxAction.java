@@ -1,6 +1,7 @@
 package cn.xiaoji.lucky.action;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -37,6 +38,8 @@ public class AjaxAction extends ActionSupport {
 	private String jsonArray;
 	private String openCode;
 	private User user;
+	private String icon;
+	private int times;
 
 	// Service层动态代理
 	@Resource(name = "userService")
@@ -45,6 +48,10 @@ public class AjaxAction extends ActionSupport {
 	private MailService mailService;
 	@Resource(name = "luckyService")
 	private LuckyService luckyService;
+	@Resource(name = "prizeService")
+	private PrizeService prizeService;
+	@Resource(name = "resultService")
+	private ResultService resultService;
 
 	public String emailCheck() {
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -93,10 +100,47 @@ public class AjaxAction extends ActionSupport {
 		HashMap<String, String> map = new HashMap<String, String>();
 		String Code = CommonUse.MD5Password(openCode);
 		Lucky lucky = luckyService.checkCode(Code);
-		if(lucky != null){
-			String url = "/lucky/lucky.xhtml?code="+Code;
+		if (lucky != null) {
+			String url = "/lucky/lucky.xhtml";
+			ActionContext.getContext().getSession().put("openCode", Code);
 			map.put("code", "success");
 			map.put("url", url);
+		} else {
+			map.put("code", "false");
+		}
+		jsonArray = JSON.toJSONString(map);
+		return SUCCESS;
+	}
+
+	public String luckyResult() {
+		HashMap<String, String> map = new HashMap<String, String>();
+		List<User> ulist = userService.findByIcon(icon);
+		if(ulist.size()==1){
+			String openCode = (String) ActionContext.getContext().getSession().get("openCode");
+			Lucky lucky = luckyService.checkCode(openCode);
+			List<Prize> plist = prizeService.getAllByLuckyId(lucky.getLucky_id());
+			Prize prize = null;
+			if(times <= 3){
+				//三等奖
+				prize = plist.get(2);
+			}else if(times <= 5){
+				//二等奖
+				prize = plist.get(1);
+			}else{
+				//一等奖
+				prize = plist.get(0);
+			}
+			Result re = new Result();
+			re.setLucky_id(lucky.getLucky_id());
+			re.setUser_id(ulist.get(0).getUser_id());
+			re.setPrize_id(prize.getPrize_id());
+			try {
+				resultService.save(re);
+				map.put("code", "success");
+				map.put("user_name", ulist.get(0).getUser_name());
+			} catch (Exception e) {
+				map.put("code", "false");
+			}
 		}else{
 			map.put("code", "false");
 		}
@@ -137,5 +181,21 @@ public class AjaxAction extends ActionSupport {
 
 	public void setOpenCode(String openCode) {
 		this.openCode = openCode;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	public int getTimes() {
+		return times;
+	}
+
+	public void setTimes(int times) {
+		this.times = times;
 	}
 }

@@ -4,23 +4,23 @@
 <!-- Generated 2017-11-12 17:28:09 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="cn.xiaoji.lucky.entity.Lucky" table="LUCKY">
-        <id name="lucky_id" type="java.lang.Integer">
+        <id name="lucky_id" type="integer">
             <column name="LUCKY_ID" />
             <generator class="native" />
         </id>
-        <property name="lucky_title" type="java.lang.String" not-null="true">
+        <property name="lucky_title" type="string" not-null="true">
             <column name="LUCKY_TITLE" />
         </property>
-        <property name="lucky_create" type="java.util.Date" not-null="true">
+        <property name="lucky_create" type="date" not-null="true">
             <column name="LUCKY_CREATE" />
         </property>
         <property name="lucky_chk" type="int" not-null="true">
             <column name="LUCKY_CHK" />
         </property>
-        <property name="user_id" type="java.lang.Integer" not-null="true">
+        <property name="user_id" type="integer" not-null="true">
             <column name="USER_ID" />
         </property>
-        <property name="lucky_pwd" type="java.lang.String" not-null="true">
+        <property name="lucky_pwd" type="string" not-null="true">
             <column name="LUCKY_PWD" />
         </property>
     </class>
