@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +16,8 @@ import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+
+import cn.xiaoji.lucky.utils.CommonUse;
 /**
  * 验证码生成Action
  * @author lamella
@@ -26,7 +27,6 @@ import com.opensymphony.xwork2.ActionSupport;
 @Controller
 @Scope("prototype")
 public class CreateCheckImageAction extends ActionSupport {
-	private int id;
 	private ByteArrayInputStream inputStream;
 
     private static int WIDTH = 100;
@@ -40,18 +40,6 @@ public class CreateCheckImageAction extends ActionSupport {
 	public void setInputStream(ByteArrayInputStream inputStream) {
 		this.inputStream = inputStream;
 	}
-	
-	private static String createRandom()
-    {
-        String str = "0123456789qwertyuiopasdfghjklzxcvbnm";
-        char[] rands = new char[4];
-        Random random = new Random();
-        for (int i = 0; i < 4; i++)
-        {
-            rands[i] = str.charAt(random.nextInt(36));
-        }
-        return new String(rands);
-    }
 	
 	private void drawBackground(Graphics g)
     {
@@ -89,7 +77,7 @@ public class CreateCheckImageAction extends ActionSupport {
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Cache-Control", "no-cache");
         response.setDateHeader("Expires", 0);
-        String rands = createRandom();
+        String rands = CommonUse.createRandom(4);
         BufferedImage image = new BufferedImage(WIDTH, HEIGHT,
                 BufferedImage.TYPE_INT_RGB);
         Graphics g = image.getGraphics();
@@ -108,12 +96,4 @@ public class CreateCheckImageAction extends ActionSupport {
         outputStream.close();
         return SUCCESS;
     }
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 }

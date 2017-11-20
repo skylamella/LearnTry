@@ -10,11 +10,10 @@
 <script src="<%= request.getContextPath() %>/js/pintuer.js"></script>
 <title>忘记密码</title>
 </head>
-<body>
+<body onload="getPassCode()">
 <div class="panel admin-panel">
 <div class="body-content">
-<!-- detail_forgetpass.xhtml -->
-	<form action="index.jsp" id="form" class="form-x" method="post">
+	<form id="form" class="form-x">
 		<div class="form-group">
         <div class="label">
           <label for="sitename">邮箱：</label>
@@ -33,10 +32,10 @@
       </div>
       <div class="form-group">
         <div class="label">
-          <label for="sitename">验证码：</label>
+          <label for="sitename">邮箱验证码：</label>
         </div>
         <div class="field">
-          <input type="text" class="input w50" id="chkCode" name="chkCode" size="50" placeholder="请输入验证码" data-validate="required:请输入验证码,length#==8:验证码为8位" />         
+          <input type="text" class="input w50" id="chkCode" name="chkCode" size="50" placeholder="请输入邮箱验证码" data-validate="required:请输入邮箱验证码,length#==8:邮箱验证码为8位" />         
         </div>
       </div>
 		<div class="form-group">
@@ -55,28 +54,66 @@
           <input type="password" class="input w50" id="user_pwd" name="user.user_pwd" size="50" placeholder="请再次输入新密码" data-validate="required:请再次输入新密码,repeat#newpass:两次输入的密码不一致" />          
         </div>
       </div>
+      <!-- 下面被注释掉的是随机验证码的模块，需要的话自行打开 -->
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">验证码：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" id="passcode" name="passcode" size="50" placeholder="请输入验证码" data-validate="required:请输入验证码,length#==4:验证码为4位" />
+          <img id="passCodeImg" src="<%= request.getContextPath() %>/check/CreateCheckImage.xhtml" alt="" width="100" height="32" class="code" style="height: 43px; cursor: pointer;" onclick="this.src='<%= request.getContextPath() %>/check/CreateCheckImage.xhtml?'+ Math.random()">
+        </div>
+      </div>
       <div class="form-group">
         <div class="label">
           <label></label>
         </div>
         <div class="field">
-          <button type="submit" class="button bg-main icon-check-square-o" onclick="return submitCHK()">提交</button>
+          <button class="button bg-main icon-check-square-o" onclick="submitCHK()">提交</button>
         </div>
       </div> 
 	</form>
 	</div>
+	
 	<script type="text/javascript">
 		var chkCode = null;
+		var passcode = null;
+		function getPassCode(){
+			var url = "<%=request.getContextPath()%>/aj/getPassCode.xhtml";
+			$.ajax({
+				type : "post",
+				url : url,
+				data : {},
+				dataType : "json",
+				async: false,
+				success : function(data) {
+					var area = jQuery.parseJSON(data);
+					if(area.code == "success"){
+						passcode = area.passcode;
+					}
+				}
+			})
+		}
 		function submitCHK(){
 			var code = $('#chkCode').val();
-			if(code == chkCode){
-				//添加验证码验证成功后处理的业务
-				if(!forgetpwdfun()){
+			//如果开启了随机验证码
+			var attrCode = $('#passcode').val();
+			if(attrCode == passcode){
+				if(code == chkCode){
+					//添加验证码验证成功后处理的业务
+					if(!forgetpwdfun()){
+						return false;
+					}else{
+						return true;
+					}
+				}else{
+					//验证验证码失败后初始化验证码
+					alert("邮箱验证码输入错误，请重新输入");
 					return false;
 				}
 			}else{
-				//验证验证码失败后初始化验证码
 				alert("验证码输入错误，请重新输入");
+				$('#passCodeImg').click();
 				return false;
 			}
 		}
@@ -91,11 +128,10 @@
 				success : function(data) {
 					var area = jQuery.parseJSON(data);
 					if(area.code == "success"){
-						alert("密码修改成功");
-						chkCode = null;
+						alert(area.text);
 						return true;
 					}else{
-						alert("密码修改失败，请重试");
+						alert(area.text);
 						return false;
 					}
 				},

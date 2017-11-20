@@ -89,8 +89,10 @@ public class AjaxAction extends ActionSupport {
 		try {
 			userService.update(u);
 			map.put("code", "success");
+			map.put("text", "修改密码成功，请登录");
 		} catch (Exception e) {
 			map.put("code", "false");
+			map.put("text", "修改密码失败，请重试");
 		}
 		jsonArray = JSON.toJSONString(map);
 		return SUCCESS;
@@ -141,6 +143,19 @@ public class AjaxAction extends ActionSupport {
 			} catch (Exception e) {
 				map.put("code", "false");
 			}
+		}else{
+			map.put("code", "false");
+		}
+		jsonArray = JSON.toJSONString(map);
+		return SUCCESS;
+	}
+	
+	public String getPassCode(){
+		HashMap<String, String> map = new HashMap<String, String>();
+		if(CommonUse.nullStringCheck((String) ActionContext.getContext().getSession().get("checkCode"))){
+			String passcode = (String) ActionContext.getContext().getSession().get("checkCode");
+			map.put("code", "success");
+			map.put("passcode", passcode);
 		}else{
 			map.put("code", "false");
 		}
