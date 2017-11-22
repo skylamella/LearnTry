@@ -10,14 +10,14 @@ import com.opensymphony.xwork2.ActionSupport;
 @Scope("prototype")
 public class IndexAction extends ActionSupport {
 	public String index() {
-		return SUCCESS;
+		return "index";
 	}
 
 	public String login() {
-		return SUCCESS;
+		return "login";
 	}
 
 	public String forgetpwd() {
-		return SUCCESS;
+		return "forgetpwd";
 	}
 }

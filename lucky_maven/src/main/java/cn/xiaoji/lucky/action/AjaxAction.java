@@ -117,19 +117,19 @@ public class AjaxAction extends ActionSupport {
 	public String luckyResult() {
 		HashMap<String, String> map = new HashMap<String, String>();
 		List<User> ulist = userService.findByIcon(icon);
-		if(ulist.size()==1){
+		if (ulist.size() == 1) {
 			String openCode = (String) ActionContext.getContext().getSession().get("openCode");
 			Lucky lucky = luckyService.checkCode(openCode);
 			List<Prize> plist = prizeService.getAllByLuckyId(lucky.getLucky_id());
 			Prize prize = null;
-			if(times <= 3){
-				//三等奖
+			if (times <= 3) {
+				// 三等奖
 				prize = plist.get(2);
-			}else if(times <= 5){
-				//二等奖
+			} else if (times <= 5) {
+				// 二等奖
 				prize = plist.get(1);
-			}else{
-				//一等奖
+			} else {
+				// 一等奖
 				prize = plist.get(0);
 			}
 			Result re = new Result();
@@ -143,26 +143,77 @@ public class AjaxAction extends ActionSupport {
 			} catch (Exception e) {
 				map.put("code", "false");
 			}
-		}else{
-			map.put("code", "false");
-		}
-		jsonArray = JSON.toJSONString(map);
-		return SUCCESS;
-	}
-	
-	public String getPassCode(){
-		HashMap<String, String> map = new HashMap<String, String>();
-		if(CommonUse.nullStringCheck((String) ActionContext.getContext().getSession().get("checkCode"))){
-			String passcode = (String) ActionContext.getContext().getSession().get("checkCode");
-			map.put("code", "success");
-			map.put("passcode", passcode);
-		}else{
+		} else {
 			map.put("code", "false");
 		}
 		jsonArray = JSON.toJSONString(map);
 		return SUCCESS;
 	}
 
+	public String getPassCode() {
+		HashMap<String, String> map = new HashMap<String, String>();
+		if (CommonUse.nullStringCheck((String) ActionContext.getContext().getSession().get("checkCode"))) {
+			String passcode = (String) ActionContext.getContext().getSession().get("checkCode");
+			map.put("code", "success");
+			map.put("passcode", passcode);
+		} else {
+			map.put("code", "false");
+		}
+		jsonArray = JSON.toJSONString(map);
+		return SUCCESS;
+	}
+
+	public String uselogin(){
+		HashMap<String, String> map = new HashMap<String, String>();
+		try{
+			System.out.println(user.getUser_email());
+			User u = userService.checkEmail(user.getUser_email());
+			if(u.getUser_chk() == 1){
+				if(u.getUser_pwd().equals(CommonUse.MD5Password(user.getUser_pwd()))){
+					map.put("code", "success");
+					ActionContext.getContext().getSession().put("user", u);
+				}else{
+					map.put("code", "false");
+					map.put("text", "账号不存在或账号密码错误，请重试");
+				}
+			}else{
+				map.put("code", "false");
+				map.put("text", "账号已被锁定，无法登陆，请联系管理员");
+			}
+		}catch(Exception e){
+			map.put("code", "false");
+			map.put("text", "账号不存在或账号密码错误，请重试");
+		}
+		jsonArray = JSON.toJSONString(map);
+		return SUCCESS;
+	}
+
+	public String changepwd(){
+		HashMap<String, String> map = new HashMap<String, String>();
+		User u = (User) ActionContext.getContext().getSession().get("user");
+		u.setUser_pwd(CommonUse.MD5Password(user.getUser_pwd()));
+		try {
+			userService.update(u);
+			map.put("code", "success");
+		} catch (Exception e) {
+			map.put("code", "false");
+		}
+		jsonArray = JSON.toJSONString(map);
+		return SUCCESS;
+	}
+	
+	public String loginout(){
+		HashMap<String, String> map = new HashMap<String, String>();
+		try {
+			ActionContext.getContext().getSession().clear();
+			map.put("code", "success");
+		} catch (Exception e) {
+			map.put("code", "false");
+		}
+		jsonArray = JSON.toJSONString(map);
+		return SUCCESS;
+	}
+	
 	/***
 	 * get，set方法
 	 */

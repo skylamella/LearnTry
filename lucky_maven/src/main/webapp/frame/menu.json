@@ -1,0 +1,32 @@
+{
+   "menus" : [{"icon" : "icon-sys","menuid" : "1","menuname" : "个人管理","url" : "","menus" : [
+                 {"icon" : "icon-log","menuid" : "1_1","menuname" : "修改信息","url" : "frame/userinfo.xhtml"
+                 },
+                 {"icon" : "icon-log","menuid" : "1_1","menuname" : "获奖查询","url" : "frame/userprize.xhtml"
+                 }
+                ]
+               },
+               {"icon" : "icon-sys","menuid" : "2","menuname" : "员工管理","url" : "","menus" : [
+                 {"icon" : "icon-log","menuid" : "2_1","menuname" : "添加员工","url" : "frame/useradchk.xhtml?url=adminuseradd"
+                 },
+                 {"icon" : "icon-log","menuid" : "2_2","menuname" : "修改员工信息","url" : "frame/useradchk.xhtml?url=adminuserupd"
+                 }
+                ]
+               },
+               {"icon" : "icon-sys","menuid" : "3","menuname" : "抽奖活动","url" : "","menus" : [
+                 {"icon" : "icon-log","menuid" : "3_1","menuname" : "添加活动","url" : "frame/useradchk.xhtml?url=adminluckyadd"
+                 },
+                 {"icon" : "icon-log","menuid" : "3_2","menuname" : "修改活动信息","url" : "frame/useradchk.xhtml?url=adminluckyupd"
+                 }
+                ]
+               }
+               ,
+               {"icon" : "icon-sys","menuid" : "3","menuname" : "奖品管理","url" : "","menus" : [
+                 {"icon" : "icon-log","menuid" : "3_1","menuname" : "添加奖品","url" : "frame/useradchk.xhtml?url=adminprizeadd"
+                 },
+                 {"icon" : "icon-log","menuid" : "3_2","menuname" : "修改奖品信息","url" : "frame/useradchk.xhtml?url=adminprizeupd"
+                 }
+                ]
+               }
+             ]
+}
