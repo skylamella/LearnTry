@@ -1,14 +1,23 @@
 package cn.xiaoji.lucky.entity;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
 
 public class Lucky {
 	private Integer lucky_id;
 	private String lucky_title;
 	private Date lucky_create;
 	private int lucky_chk;
-	private Integer user_id;
 	private String lucky_pwd;
+	@JSONField(serialize=false)
+	private Integer user_id;
+	@JSONField(serialize=false)
+	private Set<Prize> prize = new HashSet<Prize>();
+	@JSONField(serialize=false)
+	private Set<Result> result = new HashSet<Result>();
 
 	public Integer getLucky_id() {
 		return lucky_id;
@@ -56,5 +65,21 @@ public class Lucky {
 
 	public void setLucky_pwd(String lucky_pwd) {
 		this.lucky_pwd = lucky_pwd;
+	}
+
+	public Set<Prize> getPrize() {
+		return prize;
+	}
+
+	public void setPrize(Set<Prize> prize) {
+		this.prize = prize;
+	}
+
+	public Set<Result> getResult() {
+		return result;
+	}
+
+	public void setResult(Set<Result> result) {
+		this.result = result;
 	}
 }

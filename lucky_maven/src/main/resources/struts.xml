@@ -33,13 +33,9 @@
 		</global-results>
 		<action name="*" class="frameAction" method="{1}">
 			<result name="success">/WEB-INF/frame/{1}.jsp</result>
-			<result name="adminluckyadd">/WEB-INF/frame/adminluckyadd.jsp</result>
-			<result name="adminluckyupd">/WEB-INF/frame/adminluckyupd.jsp</result>
-			<result name="adminprizeadd">/WEB-INF/frame/adminprizeadd.jsp</result>
-			<result name="adminprizeupd">/WEB-INF/frame/adminprizeupd.jsp</result>
-			
-			<result name="adminuseradd">/WEB-INF/frame/adminuseradd.jsp</result>
-			<result name="adminuserupd">/WEB-INF/frame/adminuserupd.jsp</result>
+			<result name="adminlucky">/WEB-INF/frame/adminlucky.jsp</result>
+			<result name="adminprize">/WEB-INF/frame/adminprize.jsp</result>
+			<result name="adminuser">/WEB-INF/frame/adminuser.jsp</result>
 			<result name="false">/WEB-INF/frame/tips.jsp</result>
 		</action>
 	</package>
@@ -64,6 +60,9 @@
 		<action name="*" class="ajaxAction" method="{1}">
 			<result name="success" type="json">
 				<param name="root">jsonArray</param>
+			</result>
+			<result name="json" type="json">
+				<param name="root">dataMap</param>
 			</result>
 		</action>
 	</package>

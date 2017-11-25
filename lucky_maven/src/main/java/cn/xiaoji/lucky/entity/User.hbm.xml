@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2017-11-12 17:28:09 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="cn.xiaoji.lucky.entity.User" table="USER">
+    <class name="cn.xiaoji.lucky.entity.User" table="USER" lazy="false">
         <id name="user_id" type="integer">
             <column name="USER_ID" />
             <generator class="native" />
@@ -26,5 +26,13 @@
         <property name="user_admin" type="int" not-null="true">
             <column name="USER_ADMIN" />
         </property>
+        <set name="lucky">
+			<key column="create_user_id" ></key>
+			<one-to-many class="cn.xiaoji.lucky.entity.Lucky" />
+		</set>
+		<set name="result">
+			<key column="lucky_result_user_id" ></key>
+			<one-to-many class="cn.xiaoji.lucky.entity.Result" />
+		</set>
     </class>
 </hibernate-mapping>

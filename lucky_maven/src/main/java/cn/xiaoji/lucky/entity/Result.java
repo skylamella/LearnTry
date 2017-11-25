@@ -1,9 +1,14 @@
 package cn.xiaoji.lucky.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class Result {
 	private Integer result_id;
+	@JSONField(serialize=false)
 	private Integer user_id;
+	@JSONField(serialize=false)
 	private Integer prize_id;
+	@JSONField(serialize=false)
 	private Integer lucky_id;
 
 	public Integer getResult_id() {

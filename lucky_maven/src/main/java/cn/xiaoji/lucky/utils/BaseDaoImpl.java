@@ -9,7 +9,9 @@ import javax.annotation.Resource;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateCallback;
@@ -85,10 +87,24 @@ public abstract class BaseDaoImpl<T> extends HibernateDaoSupport implements Base
 	}
 
 	@Override
-	public int getRowCount() {
-		return (int) findAll().size();
+	public Integer getRowCount(DetachedCriteria dc) {
+		dc.setProjection(Projections.rowCount());
+		List<Long> list = (List<Long>) getHibernateTemplate().findByCriteria(dc);
+		//清空之前设置的聚合函数
+		dc.setProjection(null);
+		
+		if(list!=null && list.size()>0){
+			Long count = list.get(0);
+			return count.intValue();
+		}else{
+			return null;
+		}
 	}
 
+	public List<T> getPageList(DetachedCriteria dc, Integer currentPage, Integer pageSize) {
+		List<T> list = (List<T>) getHibernateTemplate().findByCriteria(dc, currentPage, pageSize);
+		return list;
+	}
 	@Autowired
 	public void setSessionFactory0(SessionFactory sessionFactory) {
 		super.setSessionFactory(sessionFactory);

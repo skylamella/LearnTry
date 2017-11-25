@@ -3,19 +3,13 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2017-11-12 17:28:09 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="cn.xiaoji.lucky.entity.Result" table="RESULT">
+    <class name="cn.xiaoji.lucky.entity.Result" table="RESULT" lazy="false">
         <id name="result_id" type="integer">
             <column name="RESULT_ID" />
             <generator class="native" />
         </id>
-        <property name="user_id" type="integer" not-null="true">
-            <column name="USER_ID" />
-        </property>
-        <property name="prize_id" type="integer" not-null="true">
-            <column name="PRIZE_ID" />
-        </property>
-        <property name="lucky_id" type="integer" not-null="true">
-            <column name="LUCKY_ID" />
-        </property>
+        <many-to-one name="user_id" column="lucky_result_user_id" class="cn.xiaoji.lucky.entity.User" ></many-to-one>
+        <many-to-one name="prize_id" column="lucky_result_prize_id" class="cn.xiaoji.lucky.entity.Prize" ></many-to-one>
+        <many-to-one name="lucky_id" column="lucky_result_lucky_id" class="cn.xiaoji.lucky.entity.Lucky" ></many-to-one>
     </class>
 </hibernate-mapping>

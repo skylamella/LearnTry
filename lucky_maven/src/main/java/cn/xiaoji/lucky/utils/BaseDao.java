@@ -2,6 +2,8 @@ package cn.xiaoji.lucky.utils;
 
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+
 public interface BaseDao<T> {
 	/**
 	 * 保存对象
@@ -44,6 +46,8 @@ public interface BaseDao<T> {
 	 * 查询当前表中的所有行数，返回一个int
 	 * @return
 	 */
-	int getRowCount();
+	Integer getRowCount(DetachedCriteria dc);
+	
+	List<T> getPageList(DetachedCriteria dc, Integer currentPage, Integer pageSize);
 	
 }

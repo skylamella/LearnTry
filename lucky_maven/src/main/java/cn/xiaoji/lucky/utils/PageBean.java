@@ -40,7 +40,7 @@ public class PageBean {
 		}
 	}
 
-	public int getStrat() {
+	public int getStart() {
 		return (this.currentPage - 1) * this.pageSize;
 	}
 

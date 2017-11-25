@@ -2,9 +2,12 @@ package cn.xiaoji.lucky.action;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -14,6 +17,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import cn.xiaoji.lucky.entity.*;
 import cn.xiaoji.lucky.service.*;
 import cn.xiaoji.lucky.utils.CommonUse;
+import cn.xiaoji.lucky.utils.PageBean;
 import cn.xiaoji.lucky.vo.Mail;
 
 /***
@@ -40,6 +44,9 @@ public class AjaxAction extends ActionSupport {
 	private User user;
 	private String icon;
 	private int times;
+	private Integer currentPage;
+	private Integer pageSize;
+	private String searchText;
 
 	// Service层动态代理
 	@Resource(name = "userService")
@@ -53,6 +60,7 @@ public class AjaxAction extends ActionSupport {
 	@Resource(name = "resultService")
 	private ResultService resultService;
 
+	//user操作方法
 	public String emailCheck() {
 		HashMap<String, String> map = new HashMap<String, String>();
 		User u = userService.checkEmail(email);
@@ -93,22 +101,6 @@ public class AjaxAction extends ActionSupport {
 		} catch (Exception e) {
 			map.put("code", "false");
 			map.put("text", "修改密码失败，请重试");
-		}
-		jsonArray = JSON.toJSONString(map);
-		return SUCCESS;
-	}
-
-	public String openCode() {
-		HashMap<String, String> map = new HashMap<String, String>();
-		String Code = CommonUse.MD5Password(openCode);
-		Lucky lucky = luckyService.checkCode(Code);
-		if (lucky != null) {
-			String url = "/lucky/lucky.xhtml";
-			ActionContext.getContext().getSession().put("openCode", Code);
-			map.put("code", "success");
-			map.put("url", url);
-		} else {
-			map.put("code", "false");
 		}
 		jsonArray = JSON.toJSONString(map);
 		return SUCCESS;
@@ -163,24 +155,24 @@ public class AjaxAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	public String uselogin(){
+	public String uselogin() {
 		HashMap<String, String> map = new HashMap<String, String>();
-		try{
+		try {
 			System.out.println(user.getUser_email());
 			User u = userService.checkEmail(user.getUser_email());
-			if(u.getUser_chk() == 1){
-				if(u.getUser_pwd().equals(CommonUse.MD5Password(user.getUser_pwd()))){
+			if (u.getUser_chk() == 1) {
+				if (u.getUser_pwd().equals(CommonUse.MD5Password(user.getUser_pwd()))) {
 					map.put("code", "success");
 					ActionContext.getContext().getSession().put("user", u);
-				}else{
+				} else {
 					map.put("code", "false");
 					map.put("text", "账号不存在或账号密码错误，请重试");
 				}
-			}else{
+			} else {
 				map.put("code", "false");
 				map.put("text", "账号已被锁定，无法登陆，请联系管理员");
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			map.put("code", "false");
 			map.put("text", "账号不存在或账号密码错误，请重试");
 		}
@@ -188,7 +180,7 @@ public class AjaxAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	public String changepwd(){
+	public String changepwd() {
 		HashMap<String, String> map = new HashMap<String, String>();
 		User u = (User) ActionContext.getContext().getSession().get("user");
 		u.setUser_pwd(CommonUse.MD5Password(user.getUser_pwd()));
@@ -201,8 +193,8 @@ public class AjaxAction extends ActionSupport {
 		jsonArray = JSON.toJSONString(map);
 		return SUCCESS;
 	}
-	
-	public String loginout(){
+
+	public String loginout() {
 		HashMap<String, String> map = new HashMap<String, String>();
 		try {
 			ActionContext.getContext().getSession().clear();
@@ -213,6 +205,27 @@ public class AjaxAction extends ActionSupport {
 		jsonArray = JSON.toJSONString(map);
 		return SUCCESS;
 	}
+
+	//lucky对象操作方法
+	public String openCode() {
+		HashMap<String, String> map = new HashMap<String, String>();
+		String Code = CommonUse.MD5Password(openCode);
+		Lucky lucky = luckyService.checkCode(Code);
+		if (lucky != null) {
+			String url = "/lucky/lucky.xhtml";
+			ActionContext.getContext().getSession().put("openCode", Code);
+			map.put("code", "success");
+			map.put("url", url);
+		} else {
+			map.put("code", "false");
+		}
+		jsonArray = JSON.toJSONString(map);
+		return SUCCESS;
+	}
+
+	//prize对象操作方法
+	
+	//result对象操作方法
 	
 	/***
 	 * get，set方法
@@ -263,5 +276,29 @@ public class AjaxAction extends ActionSupport {
 
 	public void setTimes(int times) {
 		this.times = times;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public String getSearchText() {
+		return searchText;
+	}
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
+
+	public PrizeService getPrizeService() {
+		return prizeService;
+	}
+
+	public void setPrizeService(PrizeService prizeService) {
+		this.prizeService = prizeService;
 	}
 }

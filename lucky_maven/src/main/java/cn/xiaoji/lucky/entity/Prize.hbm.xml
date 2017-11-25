@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2017-11-12 17:28:09 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="cn.xiaoji.lucky.entity.Prize" table="PRIZE">
+    <class name="cn.xiaoji.lucky.entity.Prize" table="PRIZE" lazy="false">
         <id name="prize_id" type="integer">
             <column name="PRIZE_ID" />
             <generator class="native" />
@@ -17,8 +17,10 @@
         <property name="prize_grade" type="int" not-null="true">
             <column name="PRIZE_GRADE" />
         </property>
-        <property name="lucky_id" type="int" not-null="true">
-            <column name="LUCKY_ID" />
-        </property>
+        <many-to-one name="lucky_id" column="lucky_prize_id" class="cn.xiaoji.lucky.entity.Lucky" ></many-to-one>
+        <set name="result" >
+			<key column="lucky_result_prize_id" ></key>
+			<one-to-many class="cn.xiaoji.lucky.entity.Result" />
+		</set>
     </class>
 </hibernate-mapping>
