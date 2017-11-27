@@ -112,7 +112,7 @@ public class AjaxAction extends ActionSupport {
 		if (ulist.size() == 1) {
 			String openCode = (String) ActionContext.getContext().getSession().get("openCode");
 			Lucky lucky = luckyService.checkCode(openCode);
-			List<Prize> plist = prizeService.getAllByLuckyId(lucky.getLucky_id());
+			List<Prize> plist = prizeService.getAllByLucky(lucky);
 			Prize prize = null;
 			if (times <= 3) {
 				// 三等奖
@@ -125,9 +125,9 @@ public class AjaxAction extends ActionSupport {
 				prize = plist.get(0);
 			}
 			Result re = new Result();
-			re.setLucky_id(lucky.getLucky_id());
-			re.setUser_id(ulist.get(0).getUser_id());
-			re.setPrize_id(prize.getPrize_id());
+			re.setLucky(lucky);
+			re.setUser(ulist.get(0));
+			re.setPrize(prize);
 			try {
 				resultService.save(re);
 				map.put("code", "success");

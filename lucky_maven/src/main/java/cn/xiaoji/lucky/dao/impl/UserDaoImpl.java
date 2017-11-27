@@ -64,5 +64,15 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 			}
 		});
 	}
+
+	@Override
+	public List<User> getAllChk() {
+		return (List<User>) getHibernateTemplate().execute(new HibernateCallback<List<User>>() {
+			@Override
+			public List<User> doInHibernate(Session session) throws HibernateException {
+				return session.createCriteria(clazz).add(Restrictions.eq("user_chk", 1)).list();
+			}
+		});
+	}
 	
 }

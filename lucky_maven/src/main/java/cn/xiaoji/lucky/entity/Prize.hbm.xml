@@ -17,7 +17,7 @@
         <property name="prize_grade" type="int" not-null="true">
             <column name="PRIZE_GRADE" />
         </property>
-        <many-to-one name="lucky_id" column="lucky_prize_id" class="cn.xiaoji.lucky.entity.Lucky" ></many-to-one>
+        <many-to-one name="lucky" column="lucky_prize_id" class="cn.xiaoji.lucky.entity.Lucky" ></many-to-one>
         <set name="result" >
 			<key column="lucky_result_prize_id" ></key>
 			<one-to-many class="cn.xiaoji.lucky.entity.Result" />

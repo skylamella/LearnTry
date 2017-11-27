@@ -12,22 +12,13 @@ import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
 import cn.xiaoji.lucky.dao.PrizeDao;
+import cn.xiaoji.lucky.entity.Lucky;
 import cn.xiaoji.lucky.entity.Prize;
 import cn.xiaoji.lucky.utils.BaseDaoImpl;
 
 @Repository(value="prizeDao")
 @SuppressWarnings("unchecked")
 public class PrizeDaoImpl extends BaseDaoImpl<Prize> implements PrizeDao {
-
-	@Override
-	public List<Prize> findAllById(final Integer lucky_id) {
-		return getHibernateTemplate().execute(new HibernateCallback<List<Prize>>() {
-			@Override
-			public List<Prize> doInHibernate(Session session) throws HibernateException {
-				return session.createCriteria(clazz).add(Restrictions.eq("lucky_id", lucky_id)).addOrder(Order.asc("prize_grade")).list();
-			}
-		});
-	}
 
 	@Override
 	public Map getMap(final Integer currentPage, final Integer pageSize, final String searchText) {
@@ -47,6 +38,16 @@ public class PrizeDaoImpl extends BaseDaoImpl<Prize> implements PrizeDao {
 				map.put("totalCount", i);
 				map.put("list", list);
 				return map;
+			}
+		});
+	}
+
+	@Override
+	public List<Prize> findAllByLucky(final Lucky lucky) {
+		return getHibernateTemplate().execute(new HibernateCallback<List<Prize>>() {
+			@Override
+			public List<Prize> doInHibernate(Session session) throws HibernateException {
+				return session.createCriteria(clazz).add(Restrictions.eq("lucky", lucky)).addOrder(Order.asc("prize_grade")).list();
 			}
 		});
 	}

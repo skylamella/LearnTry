@@ -61,9 +61,6 @@
 			<result name="success" type="json">
 				<param name="root">jsonArray</param>
 			</result>
-			<result name="json" type="json">
-				<param name="root">dataMap</param>
-			</result>
 		</action>
 	</package>
 </struts>

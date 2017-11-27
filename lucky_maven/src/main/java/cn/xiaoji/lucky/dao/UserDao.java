@@ -12,4 +12,6 @@ public interface UserDao extends BaseDao<User> {
 	List<User> findByIcon(String icon);
 	
 	Map getMap(Integer currentPage, Integer pageSize, String searchText);
+
+	List<User> getAllChk();
 }

@@ -30,11 +30,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> getAll() {
-		return userDao.findAll();
-	}
-
-	@Override
 	public void save(User u) {
 		userDao.save(u);
 	}
@@ -50,5 +45,20 @@ public class UserServiceImpl implements UserService {
 		List<User> list = userDao.getPageList(dc,pageBean.getStart(),pageBean.getPageSize());
 		pageBean.setList(list);
 		return pageBean;
+	}
+
+	@Override
+	public User findById(Integer user_id) {
+		return userDao.findByID(user_id);
+	}
+
+	@Override
+	public void delete(Integer user_id) {
+		userDao.delete(user_id);
+	}
+
+	@Override
+	public List<User> getAllChk() {
+		return userDao.getAllChk();
 	}
 }

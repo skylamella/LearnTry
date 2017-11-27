@@ -9,6 +9,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.stereotype.Service;
 
 import cn.xiaoji.lucky.dao.PrizeDao;
+import cn.xiaoji.lucky.entity.Lucky;
 import cn.xiaoji.lucky.entity.Prize;
 import cn.xiaoji.lucky.entity.User;
 import cn.xiaoji.lucky.service.PrizeService;
@@ -20,16 +21,21 @@ public class PrizeServiceImpl implements PrizeService {
 	private PrizeDao prizeDao;
 
 	@Override
-	public List<Prize> getAllByLuckyId(Integer lucky_id) {
-		return prizeDao.findAllById(lucky_id);
-	}
-
-	@Override
 	public PageBean getPageBean(DetachedCriteria dc, Integer currentPage, Integer pageSize) {
 		PageBean pageBean = new PageBean(currentPage, prizeDao.getRowCount(dc), pageSize);
 		List<Prize> list = prizeDao.getPageList(dc,pageBean.getCurrentPage(),pageBean.getPageSize());
 		pageBean.setList(list);
 		return pageBean;
+	}
+
+	@Override
+	public void save(Prize prize) {
+		prizeDao.save(prize);
+	}
+
+	@Override
+	public List<Prize> getAllByLucky(Lucky lucky) {
+		return prizeDao.findAllByLucky(lucky);
 	}
 
 }

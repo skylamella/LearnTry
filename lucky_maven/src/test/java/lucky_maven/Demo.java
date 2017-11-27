@@ -1,6 +1,7 @@
 package lucky_maven;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -13,7 +14,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alibaba.fastjson.JSON;
 
+import cn.xiaoji.lucky.entity.Lucky;
+import cn.xiaoji.lucky.entity.Prize;
+import cn.xiaoji.lucky.service.LuckyService;
+import cn.xiaoji.lucky.service.MailService;
+import cn.xiaoji.lucky.service.PrizeService;
+import cn.xiaoji.lucky.service.ResultService;
 import cn.xiaoji.lucky.service.UserService;
+import cn.xiaoji.lucky.utils.CommonUse;
 import cn.xiaoji.lucky.utils.PageBean;
 import junit.framework.TestCase;
 
@@ -30,15 +38,38 @@ public class Demo extends TestCase {
 
 	@Resource(name = "userService")
 	private UserService userService;
+	@Resource(name = "mailService")
+	private MailService mailService;
+	@Resource(name = "luckyService")
+	private LuckyService luckyService;
+	@Resource(name = "prizeService")
+	private PrizeService prizeService;
+	@Resource(name = "resultService")
+	private ResultService resultService;
+	
 	@Test
 	public void test() {
-		/*PageBean pageBean = userService.getPageBean(currentPage, pageSize, searchText);
-		Map map = new HashMap();
-		map.put("total", pageBean.getTotalCount());
-		map.put("rows", pageBean.getList());
-		String jsonArray = JSON.toJSONString(map);
-		System.out.println(pageBean.getTotalCount());
-		System.out.println(jsonArray);*/
+		Prize prize = new Prize();
+		String Code = CommonUse.MD5Password("123456");
+		prize.setLucky(luckyService.checkCode(Code));
+		prize.setPrize_grade(3);
+		prize.setPrize_name("奖品三");
+		prize.setPrize_nums(3);
+		prizeService.save(prize);
+	}
+	@Test
+	public void test2() {
+		String Code = CommonUse.MD5Password("123456");
+		Lucky lucky = luckyService.checkCode(Code);
+		List<Prize> list = prizeService.getAllByLucky(lucky);
+		System.out.println(list.get(0).getPrize_name());
+	}
+	@Test
+	public void test3() {
+		String Code = CommonUse.MD5Password("123456");
+		Lucky lucky = luckyService.checkCode(Code);
+		List<Prize> list = prizeService.getAllByLucky(lucky);
+		System.out.println(list.get(0).getPrize_name());
 	}
 	public Integer getCurrentPage() {
 		return currentPage;

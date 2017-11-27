@@ -15,8 +15,8 @@ import com.alibaba.fastjson.JSON;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-import cn.xiaoji.lucky.entity.User;
-import cn.xiaoji.lucky.service.UserService;
+import cn.xiaoji.lucky.entity.*;
+import cn.xiaoji.lucky.service.*;
 import cn.xiaoji.lucky.utils.CommonUse;
 import cn.xiaoji.lucky.utils.PageBean;
 @SuppressWarnings("serial")
@@ -28,9 +28,19 @@ public class FrameAction extends ActionSupport {
 	private Integer page;
 	private Integer rows;
 	private String searchText;
+	private User user;
+	private Lucky lucky;
+	private Result result;
+	private Prize prize;
 
 	@Resource(name = "userService")
 	private UserService userService;
+	@Resource(name = "luckyService")
+	private LuckyService luckyService;
+	@Resource(name = "prizeService")
+	private PrizeService prizeService;
+	@Resource(name = "resultService")
+	private ResultService resultService;
 
 	public String index() {
 		return SUCCESS;
@@ -68,6 +78,82 @@ public class FrameAction extends ActionSupport {
 		return null;
 	}
 
+	public String userAdd() throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		try {
+			if (user.getUser_id() != null) {
+				User u = userService.findById(user.getUser_id());
+				if (!u.getUser_pwd().equals(user.getUser_pwd())) {
+					user.setUser_pwd(CommonUse.MD5Password(user.getUser_pwd()));
+				}
+				user.setUser_chk(u.getUser_chk());
+				userService.update(user);
+			} else {
+				user.setUser_chk(1);
+				user.setUser_pwd(CommonUse.MD5Password(user.getUser_pwd()));
+				userService.save(user);
+			}
+			dataMap.put("code", "success");
+		} catch (Exception e) {
+			dataMap.put("code", "false");
+		}
+		String jsonArray = JSON.toJSONString(dataMap);
+		ServletActionContext.getResponse().setContentType("application/json;charset=utf-8");
+		ServletActionContext.getResponse().getWriter().write(jsonArray);
+		return null;
+	}
+
+	public String userSearch() throws Exception {
+		User u = userService.findById(user.getUser_id());
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("user.user_id", u.getUser_id());
+		dataMap.put("user.user_name", u.getUser_name());
+		dataMap.put("user.user_email", u.getUser_email());
+		dataMap.put("user.user_admin", u.getUser_admin());
+		dataMap.put("user.user_pwd", u.getUser_pwd());
+		String jsonArray = JSON.toJSONString(dataMap);
+		ServletActionContext.getResponse().setContentType("application/json;charset=utf-8");
+		ServletActionContext.getResponse().getWriter().write(jsonArray);
+		return null;
+	}
+
+	public String userDel() throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		User u = userService.findById(user.getUser_id());
+		u.setUser_chk(0);
+		try {
+			userService.update(u);
+			dataMap.put("code", "success");
+		} catch (Exception e) {
+			dataMap.put("code", "false");
+		}
+		String jsonArray = JSON.toJSONString(dataMap);
+		ServletActionContext.getResponse().setContentType("application/json;charset=utf-8");
+		ServletActionContext.getResponse().getWriter().write(jsonArray);
+		return null;
+	}
+	public String userReDel() throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		User u = userService.findById(user.getUser_id());
+		if (u.getUser_chk() == 1) {
+			dataMap.put("code", "false");
+			dataMap.put("text", "该账号为正常账号");
+		} else {
+			u.setUser_chk(1);
+			try {
+				userService.update(u);
+				dataMap.put("code", "success");
+			} catch (Exception e) {
+				dataMap.put("code", "false");
+				dataMap.put("text", "解锁账号失败，请重试！");
+			}
+		}
+		String jsonArray = JSON.toJSONString(dataMap);
+		ServletActionContext.getResponse().setContentType("application/json;charset=utf-8");
+		ServletActionContext.getResponse().getWriter().write(jsonArray);
+		return null;
+	}
+
 	public String getUrl() {
 		return url;
 	}
@@ -99,4 +185,37 @@ public class FrameAction extends ActionSupport {
 	public void setRows(Integer rows) {
 		this.rows = rows;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Lucky getLucky() {
+		return lucky;
+	}
+
+	public void setLucky(Lucky lucky) {
+		this.lucky = lucky;
+	}
+
+	public Result getResult() {
+		return result;
+	}
+
+	public void setResult(Result result) {
+		this.result = result;
+	}
+
+	public Prize getPrize() {
+		return prize;
+	}
+
+	public void setPrize(Prize prize) {
+		this.prize = prize;
+	}
+
 }

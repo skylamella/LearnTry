@@ -173,11 +173,6 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.2.8</version>
 		</dependency>
-		<dependency>
-			<groupId>org.tuckey</groupId>
-			<artifactId>urlrewritefilter</artifactId>
-			<version>3.2.0</version>
-		</dependency>
 	</dependencies>
 
 	<build>

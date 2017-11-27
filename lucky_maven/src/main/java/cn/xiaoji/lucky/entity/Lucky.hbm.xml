@@ -20,7 +20,9 @@
         <property name="lucky_pwd" type="string" not-null="true">
             <column name="LUCKY_PWD" />
         </property>
-        <many-to-one name="user_id" column="create_user_id" class="cn.xiaoji.lucky.entity.User" ></many-to-one>
+        <many-to-one name="user" class="cn.xiaoji.lucky.entity.User">
+        	<column name="create_user_id" not-null="true"/>
+        </many-to-one>
         <set name="prize">
 			<key column="lucky_prize_id" ></key>
 			<one-to-many class="cn.xiaoji.lucky.entity.Prize" />

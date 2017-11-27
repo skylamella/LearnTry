@@ -13,12 +13,16 @@ public interface UserService {
 
 	void update(User u);
 
-	List<User> getAll();
-
 	void save(User u);
 
 	List<User> findByIcon(String icon);
 	
 	PageBean getPageBean(DetachedCriteria dc, Integer currentPage, Integer pageSize);
+
+	User findById(Integer user_id);
+
+	void delete(Integer user_id);
+
+	List<User> getAllChk();
 
 }

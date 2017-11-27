@@ -8,8 +8,8 @@
             <column name="RESULT_ID" />
             <generator class="native" />
         </id>
-        <many-to-one name="user_id" column="lucky_result_user_id" class="cn.xiaoji.lucky.entity.User" ></many-to-one>
-        <many-to-one name="prize_id" column="lucky_result_prize_id" class="cn.xiaoji.lucky.entity.Prize" ></many-to-one>
-        <many-to-one name="lucky_id" column="lucky_result_lucky_id" class="cn.xiaoji.lucky.entity.Lucky" ></many-to-one>
+        <many-to-one name="user" column="lucky_result_user_id" class="cn.xiaoji.lucky.entity.User" ></many-to-one>
+        <many-to-one name="prize" column="lucky_result_prize_id" class="cn.xiaoji.lucky.entity.Prize" ></many-to-one>
+        <many-to-one name="lucky" column="lucky_result_lucky_id" class="cn.xiaoji.lucky.entity.Lucky" ></many-to-one>
     </class>
 </hibernate-mapping>

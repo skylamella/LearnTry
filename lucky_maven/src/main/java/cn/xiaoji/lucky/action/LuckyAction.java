@@ -36,9 +36,9 @@ public class LuckyAction extends ActionSupport {
 			//从数据库中读取各种各样的数据
 			String openCode = (String) ActionContext.getContext().getSession().get("openCode");
 			Lucky lucky = luckyService.checkCode(openCode);
-			List<User> ulist = userService.getAll();
+			List<User> ulist = userService.getAllChk();
 			User u = ulist.get(0);
-			List<Prize> plist = prizeService.getAllByLuckyId(lucky.getLucky_id());
+			List<Prize> plist = prizeService.getAllByLucky(lucky);
 			
 			//将需要在前台显示的数据以键值对的方式放在session域里
 			ActionContext.getContext().getSession().put("lucky", lucky);

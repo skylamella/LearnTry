@@ -12,8 +12,9 @@ public class Lucky {
 	private Date lucky_create;
 	private int lucky_chk;
 	private String lucky_pwd;
+	
 	@JSONField(serialize=false)
-	private Integer user_id;
+	private User user;
 	@JSONField(serialize=false)
 	private Set<Prize> prize = new HashSet<Prize>();
 	@JSONField(serialize=false)
@@ -51,12 +52,12 @@ public class Lucky {
 		this.lucky_chk = lucky_chk;
 	}
 
-	public Integer getUser_id() {
-		return user_id;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUser_id(Integer user_id) {
-		this.user_id = user_id;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getLucky_pwd() {
