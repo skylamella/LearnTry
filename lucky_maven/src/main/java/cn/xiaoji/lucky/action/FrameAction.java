@@ -1,5 +1,6 @@
 package cn.xiaoji.lucky.action;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +33,8 @@ public class FrameAction extends ActionSupport {
 	private Lucky lucky;
 	private Result result;
 	private Prize prize;
+	private File upload;// 上传的文件
+	private String uploadFileName;// 上传的文件名陈
 
 	@Resource(name = "userService")
 	private UserService userService;
@@ -80,6 +83,15 @@ public class FrameAction extends ActionSupport {
 
 	public String userAdd() throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		String upFileName = null;
+		if(upload != null){
+			upFileName = CommonUse.generateFileName(uploadFileName);
+			String uploadFilePath = ServletActionContext.getServletContext().getRealPath("/images/icon");
+			String path = uploadFilePath + "\\" + upFileName;
+			upload.renameTo(new File(path));
+		}
+		
 		try {
 			if (user.getUser_id() != null) {
 				User u = userService.findById(user.getUser_id());
@@ -87,9 +99,15 @@ public class FrameAction extends ActionSupport {
 					user.setUser_pwd(CommonUse.MD5Password(user.getUser_pwd()));
 				}
 				user.setUser_chk(u.getUser_chk());
+				if(upload != null){
+					user.setUser_icon(upFileName);
+				}else{
+					user.setUser_icon(u.getUser_icon());
+				}
 				userService.update(user);
 			} else {
 				user.setUser_chk(1);
+				user.setUser_icon(upFileName);
 				user.setUser_pwd(CommonUse.MD5Password(user.getUser_pwd()));
 				userService.save(user);
 			}
@@ -216,6 +234,22 @@ public class FrameAction extends ActionSupport {
 
 	public void setPrize(Prize prize) {
 		this.prize = prize;
+	}
+
+	public File getUpload() {
+		return upload;
+	}
+
+	public void setUpload(File upload) {
+		this.upload = upload;
+	}
+
+	public String getUploadFileName() {
+		return uploadFileName;
+	}
+
+	public void setUploadFileName(String uploadFileName) {
+		this.uploadFileName = uploadFileName;
 	}
 
 }

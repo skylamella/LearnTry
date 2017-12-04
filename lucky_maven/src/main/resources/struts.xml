@@ -27,15 +27,14 @@
 			</interceptor-stack>
 		</interceptors>
 		<!-- 引用默认拦截器栈 -->
-		<default-interceptor-ref name="xiaoji_stack" />
-		<global-results>
-			<result name="login">/admin/index.jsp</result>
-		</global-results>
+		<!-- <default-interceptor-ref name="xiaoji_stack" /> -->
+		
 		<action name="*" class="frameAction" method="{1}">
 			<result name="success">/WEB-INF/frame/{1}.jsp</result>
 			<result name="adminlucky">/WEB-INF/frame/adminlucky.jsp</result>
 			<result name="adminprize">/WEB-INF/frame/adminprize.jsp</result>
 			<result name="adminuser">/WEB-INF/frame/adminuser.jsp</result>
+			<result name="login">/admin/index.jsp</result>
 			<result name="false">/WEB-INF/frame/tips.jsp</result>
 		</action>
 	</package>

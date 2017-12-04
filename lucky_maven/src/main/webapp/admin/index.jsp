@@ -3,6 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en" class="no-js">
 <head>
+<script type="text/javascript">
+    window.onload=function(){
+		if(window.parent != window){
+			window.parent.location.href = "<%= request.getContextPath() %>/admin/login.xhtml";
+		}
+	};
+</script>
 <meta charset="utf-8">
 <title>用户登录</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">

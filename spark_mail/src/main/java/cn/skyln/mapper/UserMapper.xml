@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.skyln.mapper.UserMapper">
+	<!-- 通过ID查询一个用户 -->
+	<select id="findUserById" parameterType="Integer" resultType="cn.skyln.pojo.User">
+		select * from user 
+		where User_id = #{v}
+	</select>
+	
+	<select id="findUserByUsername" parameterType="String" resultType="cn.skyln.pojo.User">
+		select * from user 
+		where User_name like "%"#{v}"%"
+	</select>
+	
+	<!-- 添加用户 -->
+	<insert id="insertUser" parameterType="cn.skyln.pojo.User">
+		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
+		insert into user (User_name,User_pwd,User_email,User_phone,User_icon,User_create) 
+		values (#{User_name},#{User_pwd},#{User_email},#{User_phone},#{User_icon},#{User_create})
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="updateUserById" parameterType="cn.skyln.pojo.User">
+		update user 
+		set User_name = #{User_name},User_pwd = #{User_pwd},User_email = #{User_email},User_phone = #{User_phone},User_icon = #{User_icon},User_create = #{User_create}
+		where User_id = #{User_id}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteUserById" parameterType="Integer">
+		delete from user 
+		where User_id = #{vvvvv}
+	</delete>
+</mapper>
