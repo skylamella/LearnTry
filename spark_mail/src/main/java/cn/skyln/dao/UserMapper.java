@@ -1,4 +1,4 @@
-package cn.skyln.mapper;
+package cn.skyln.dao;
 
 import cn.skyln.pojo.User;
 
