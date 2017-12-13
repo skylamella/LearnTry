@@ -178,4 +178,13 @@
       department_id = #{departmentId,jdbcType=INTEGER}
     where role_id = #{roleId,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectByLimit" parameterType="cn.skyln.news.pojo.RoleExample" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    <if test="currentPage !=0 or pageSize!=0">  
+    	limit #{currentPage},#{pageSize}
+    </if>
+  </select>
 </mapper>

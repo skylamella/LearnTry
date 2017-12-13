@@ -316,4 +316,15 @@
       column_id = #{columnId,jdbcType=INTEGER}
     where news_id = #{newsId,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectByLimit" parameterType="cn.skyln.news.pojo.NewsWithBLOBs" resultMap="ResultMapWithBLOBs" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from news
+    <if test="currentPage !=0 or pageSize!=0">  
+    	limit #{currentPage},#{pageSize}
+    </if>
+  </select>
 </mapper>

@@ -161,4 +161,13 @@
     set column_name = #{columnName,jdbcType=VARCHAR}
     where column_id = #{columnId,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectByLimit" parameterType="cn.skyln.news.pojo.ColumnExample" resultType="cn.skyln.news.pojo.Column" >
+    select 
+    <include refid="Base_Column_List" />
+    from column
+    <if test="currentPage !=0 or pageSize!=0">  
+    	limit #{currentPage},#{pageSize}
+    </if>
+  </select>
 </mapper>

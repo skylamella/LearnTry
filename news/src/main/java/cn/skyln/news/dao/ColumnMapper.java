@@ -17,6 +17,8 @@ public interface ColumnMapper {
     int insertSelective(Column record);
 
     List<Column> selectByExample(ColumnExample example);
+    
+    List<Column> selectByLimit(ColumnExample example);
 
     Column selectByPrimaryKey(Integer columnId);
 

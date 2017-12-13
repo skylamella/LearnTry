@@ -17,6 +17,8 @@ public interface DepartmentMapper {
     int insertSelective(Department record);
 
     List<Department> selectByExample(DepartmentExample example);
+    
+    List<Department> selectByLimit(DepartmentExample example);
 
     Department selectByPrimaryKey(Integer departmentId);
 

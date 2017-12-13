@@ -288,4 +288,13 @@
       user_accountChk = #{userAccountchk,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectByLimit" parameterType="cn.skyln.news.pojo.UserExample" resultType="cn.skyln.news.pojo.User" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    <if test="currentPage !=0 or pageSize!=0">  
+    	limit #{currentPage},#{pageSize}
+    </if>
+  </select>
 </mapper>

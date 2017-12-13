@@ -9,6 +9,26 @@ public class RoleExample {
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
+    
+    private Integer currentPage;
+    
+    private Integer pageSize;
+    
+    public Integer getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(Integer currentPage) {
+		this.currentPage = currentPage;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
 
     public RoleExample() {
         oredCriteria = new ArrayList<Criteria>();

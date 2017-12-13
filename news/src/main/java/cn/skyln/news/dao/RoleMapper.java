@@ -17,6 +17,8 @@ public interface RoleMapper {
     int insertSelective(Role record);
 
     List<Role> selectByExample(RoleExample example);
+    
+    List<Role> selectByLimit(RoleExample example);
 
     Role selectByPrimaryKey(Integer roleId);
 

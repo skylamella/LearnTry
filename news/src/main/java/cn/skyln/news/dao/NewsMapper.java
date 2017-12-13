@@ -20,6 +20,8 @@ public interface NewsMapper {
     List<NewsWithBLOBs> selectByExampleWithBLOBs(NewsExample example);
 
     List<News> selectByExample(NewsExample example);
+    
+    List<News> selectByLimit(NewsExample example);
 
     NewsWithBLOBs selectByPrimaryKey(Integer newsId);
 
