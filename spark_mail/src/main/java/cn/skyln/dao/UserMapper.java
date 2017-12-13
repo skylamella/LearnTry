@@ -1,8 +1,32 @@
 package cn.skyln.dao;
 
 import cn.skyln.pojo.User;
+import cn.skyln.pojo.UserExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
-public interface  UserMapper {
+public interface UserMapper {
+    int countByExample(UserExample example);
 
-	public User findUserById(Integer id);
+    int deleteByExample(UserExample example);
+
+    int deleteByPrimaryKey(Integer userId);
+
+    int insert(User record);
+
+    int insertSelective(User record);
+
+    List<User> selectByExample(UserExample example);
+    
+    List<User> selectByLimit(UserExample example);
+
+    User selectByPrimaryKey(Integer userId);
+
+    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
+
+    int updateByExample(@Param("record") User record, @Param("example") UserExample example);
+
+    int updateByPrimaryKeySelective(User record);
+
+    int updateByPrimaryKey(User record);
 }

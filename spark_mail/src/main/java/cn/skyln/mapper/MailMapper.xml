@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.skyln.dao.MailMapper" >
+  <resultMap id="BaseResultMap" type="cn.skyln.pojo.Mail" >
+    <id column="mail_id" property="mailId" jdbcType="INTEGER" />
+    <result column="mail_title" property="mailTitle" jdbcType="VARCHAR" />
+    <result column="mail_chk" property="mailChk" jdbcType="VARCHAR" />
+    <result column="mail_createUser" property="mailCreateuser" jdbcType="INTEGER" />
+    <result column="mail_toUser" property="mailTouser" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.skyln.pojo.Mail" extends="BaseResultMap" >
+    <result column="mail_text" property="mailText" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mail_id, mail_title, mail_chk, mail_createUser, mail_toUser
+  </sql>
+  <sql id="Blob_Column_List" >
+    mail_text
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="cn.skyln.pojo.MailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.skyln.pojo.MailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mail
+    where mail_id = #{mailId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mail
+    where mail_id = #{mailId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.skyln.pojo.MailExample" >
+    delete from mail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.skyln.pojo.Mail" >
+    insert into mail (mail_id, mail_title, mail_chk, 
+      mail_createUser, mail_toUser, mail_text
+      )
+    values (#{mailId,jdbcType=INTEGER}, #{mailTitle,jdbcType=VARCHAR}, #{mailChk,jdbcType=VARCHAR}, 
+      #{mailCreateuser,jdbcType=INTEGER}, #{mailTouser,jdbcType=INTEGER}, #{mailText,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.skyln.pojo.Mail" >
+    insert into mail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mailId != null" >
+        mail_id,
+      </if>
+      <if test="mailTitle != null" >
+        mail_title,
+      </if>
+      <if test="mailChk != null" >
+        mail_chk,
+      </if>
+      <if test="mailCreateuser != null" >
+        mail_createUser,
+      </if>
+      <if test="mailTouser != null" >
+        mail_toUser,
+      </if>
+      <if test="mailText != null" >
+        mail_text,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mailId != null" >
+        #{mailId,jdbcType=INTEGER},
+      </if>
+      <if test="mailTitle != null" >
+        #{mailTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="mailChk != null" >
+        #{mailChk,jdbcType=VARCHAR},
+      </if>
+      <if test="mailCreateuser != null" >
+        #{mailCreateuser,jdbcType=INTEGER},
+      </if>
+      <if test="mailTouser != null" >
+        #{mailTouser,jdbcType=INTEGER},
+      </if>
+      <if test="mailText != null" >
+        #{mailText,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.skyln.pojo.MailExample" resultType="java.lang.Integer" >
+    select count(*) from mail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mail
+    <set >
+      <if test="record.mailId != null" >
+        mail_id = #{record.mailId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mailTitle != null" >
+        mail_title = #{record.mailTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mailChk != null" >
+        mail_chk = #{record.mailChk,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mailCreateuser != null" >
+        mail_createUser = #{record.mailCreateuser,jdbcType=INTEGER},
+      </if>
+      <if test="record.mailTouser != null" >
+        mail_toUser = #{record.mailTouser,jdbcType=INTEGER},
+      </if>
+      <if test="record.mailText != null" >
+        mail_text = #{record.mailText,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update mail
+    set mail_id = #{record.mailId,jdbcType=INTEGER},
+      mail_title = #{record.mailTitle,jdbcType=VARCHAR},
+      mail_chk = #{record.mailChk,jdbcType=VARCHAR},
+      mail_createUser = #{record.mailCreateuser,jdbcType=INTEGER},
+      mail_toUser = #{record.mailTouser,jdbcType=INTEGER},
+      mail_text = #{record.mailText,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mail
+    set mail_id = #{record.mailId,jdbcType=INTEGER},
+      mail_title = #{record.mailTitle,jdbcType=VARCHAR},
+      mail_chk = #{record.mailChk,jdbcType=VARCHAR},
+      mail_createUser = #{record.mailCreateuser,jdbcType=INTEGER},
+      mail_toUser = #{record.mailTouser,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.skyln.pojo.Mail" >
+    update mail
+    <set >
+      <if test="mailTitle != null" >
+        mail_title = #{mailTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="mailChk != null" >
+        mail_chk = #{mailChk,jdbcType=VARCHAR},
+      </if>
+      <if test="mailCreateuser != null" >
+        mail_createUser = #{mailCreateuser,jdbcType=INTEGER},
+      </if>
+      <if test="mailTouser != null" >
+        mail_toUser = #{mailTouser,jdbcType=INTEGER},
+      </if>
+      <if test="mailText != null" >
+        mail_text = #{mailText,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where mail_id = #{mailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.skyln.pojo.Mail" >
+    update mail
+    set mail_title = #{mailTitle,jdbcType=VARCHAR},
+      mail_chk = #{mailChk,jdbcType=VARCHAR},
+      mail_createUser = #{mailCreateuser,jdbcType=INTEGER},
+      mail_toUser = #{mailTouser,jdbcType=INTEGER},
+      mail_text = #{mailText,jdbcType=LONGVARCHAR}
+    where mail_id = #{mailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.skyln.pojo.Mail" >
+    update mail
+    set mail_title = #{mailTitle,jdbcType=VARCHAR},
+      mail_chk = #{mailChk,jdbcType=VARCHAR},
+      mail_createUser = #{mailCreateuser,jdbcType=INTEGER},
+      mail_toUser = #{mailTouser,jdbcType=INTEGER}
+    where mail_id = #{mailId,jdbcType=INTEGER}
+  </update>
+</mapper>

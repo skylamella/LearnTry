@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.skyln.news.dao.NewsMapper" >
+  <resultMap id="BaseResultMap" type="cn.skyln.news.pojo.News" >
+    <id column="news_id" property="newsId" jdbcType="INTEGER" />
+    <result column="news_create" property="newsCreate" jdbcType="TIMESTAMP" />
+    <result column="news_update" property="newsUpdate" jdbcType="TIMESTAMP" />
+    <result column="user_id_cre" property="userIdCre" jdbcType="INTEGER" />
+    <result column="user_id_upd" property="userIdUpd" jdbcType="INTEGER" />
+    <result column="column_id" property="columnId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.skyln.news.pojo.NewsWithBLOBs" extends="BaseResultMap" >
+    <result column="news_title" property="newsTitle" jdbcType="LONGVARCHAR" />
+    <result column="news_content" property="newsContent" jdbcType="LONGVARCHAR" />
+    <result column="news_download" property="newsDownload" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    news_id, news_create, news_update, user_id_cre, user_id_upd, column_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    news_title, news_content, news_download
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="cn.skyln.news.pojo.NewsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.skyln.news.pojo.NewsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from news
+    where news_id = #{newsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from news
+    where news_id = #{newsId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.skyln.news.pojo.NewsExample" >
+    delete from news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.skyln.news.pojo.NewsWithBLOBs" >
+    insert into news (news_id, news_create, news_update, 
+      user_id_cre, user_id_upd, column_id, 
+      news_title, news_content, news_download
+      )
+    values (#{newsId,jdbcType=INTEGER}, #{newsCreate,jdbcType=TIMESTAMP}, #{newsUpdate,jdbcType=TIMESTAMP}, 
+      #{userIdCre,jdbcType=INTEGER}, #{userIdUpd,jdbcType=INTEGER}, #{columnId,jdbcType=INTEGER}, 
+      #{newsTitle,jdbcType=LONGVARCHAR}, #{newsContent,jdbcType=LONGVARCHAR}, #{newsDownload,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.skyln.news.pojo.NewsWithBLOBs" >
+    insert into news
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="newsId != null" >
+        news_id,
+      </if>
+      <if test="newsCreate != null" >
+        news_create,
+      </if>
+      <if test="newsUpdate != null" >
+        news_update,
+      </if>
+      <if test="userIdCre != null" >
+        user_id_cre,
+      </if>
+      <if test="userIdUpd != null" >
+        user_id_upd,
+      </if>
+      <if test="columnId != null" >
+        column_id,
+      </if>
+      <if test="newsTitle != null" >
+        news_title,
+      </if>
+      <if test="newsContent != null" >
+        news_content,
+      </if>
+      <if test="newsDownload != null" >
+        news_download,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="newsId != null" >
+        #{newsId,jdbcType=INTEGER},
+      </if>
+      <if test="newsCreate != null" >
+        #{newsCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="newsUpdate != null" >
+        #{newsUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userIdCre != null" >
+        #{userIdCre,jdbcType=INTEGER},
+      </if>
+      <if test="userIdUpd != null" >
+        #{userIdUpd,jdbcType=INTEGER},
+      </if>
+      <if test="columnId != null" >
+        #{columnId,jdbcType=INTEGER},
+      </if>
+      <if test="newsTitle != null" >
+        #{newsTitle,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="newsContent != null" >
+        #{newsContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="newsDownload != null" >
+        #{newsDownload,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.skyln.news.pojo.NewsExample" resultType="java.lang.Integer" >
+    select count(*) from news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update news
+    <set >
+      <if test="record.newsId != null" >
+        news_id = #{record.newsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.newsCreate != null" >
+        news_create = #{record.newsCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.newsUpdate != null" >
+        news_update = #{record.newsUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userIdCre != null" >
+        user_id_cre = #{record.userIdCre,jdbcType=INTEGER},
+      </if>
+      <if test="record.userIdUpd != null" >
+        user_id_upd = #{record.userIdUpd,jdbcType=INTEGER},
+      </if>
+      <if test="record.columnId != null" >
+        column_id = #{record.columnId,jdbcType=INTEGER},
+      </if>
+      <if test="record.newsTitle != null" >
+        news_title = #{record.newsTitle,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.newsContent != null" >
+        news_content = #{record.newsContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.newsDownload != null" >
+        news_download = #{record.newsDownload,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update news
+    set news_id = #{record.newsId,jdbcType=INTEGER},
+      news_create = #{record.newsCreate,jdbcType=TIMESTAMP},
+      news_update = #{record.newsUpdate,jdbcType=TIMESTAMP},
+      user_id_cre = #{record.userIdCre,jdbcType=INTEGER},
+      user_id_upd = #{record.userIdUpd,jdbcType=INTEGER},
+      column_id = #{record.columnId,jdbcType=INTEGER},
+      news_title = #{record.newsTitle,jdbcType=LONGVARCHAR},
+      news_content = #{record.newsContent,jdbcType=LONGVARCHAR},
+      news_download = #{record.newsDownload,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update news
+    set news_id = #{record.newsId,jdbcType=INTEGER},
+      news_create = #{record.newsCreate,jdbcType=TIMESTAMP},
+      news_update = #{record.newsUpdate,jdbcType=TIMESTAMP},
+      user_id_cre = #{record.userIdCre,jdbcType=INTEGER},
+      user_id_upd = #{record.userIdUpd,jdbcType=INTEGER},
+      column_id = #{record.columnId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.skyln.news.pojo.NewsWithBLOBs" >
+    update news
+    <set >
+      <if test="newsCreate != null" >
+        news_create = #{newsCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="newsUpdate != null" >
+        news_update = #{newsUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userIdCre != null" >
+        user_id_cre = #{userIdCre,jdbcType=INTEGER},
+      </if>
+      <if test="userIdUpd != null" >
+        user_id_upd = #{userIdUpd,jdbcType=INTEGER},
+      </if>
+      <if test="columnId != null" >
+        column_id = #{columnId,jdbcType=INTEGER},
+      </if>
+      <if test="newsTitle != null" >
+        news_title = #{newsTitle,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="newsContent != null" >
+        news_content = #{newsContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="newsDownload != null" >
+        news_download = #{newsDownload,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where news_id = #{newsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.skyln.news.pojo.NewsWithBLOBs" >
+    update news
+    set news_create = #{newsCreate,jdbcType=TIMESTAMP},
+      news_update = #{newsUpdate,jdbcType=TIMESTAMP},
+      user_id_cre = #{userIdCre,jdbcType=INTEGER},
+      user_id_upd = #{userIdUpd,jdbcType=INTEGER},
+      column_id = #{columnId,jdbcType=INTEGER},
+      news_title = #{newsTitle,jdbcType=LONGVARCHAR},
+      news_content = #{newsContent,jdbcType=LONGVARCHAR},
+      news_download = #{newsDownload,jdbcType=LONGVARCHAR}
+    where news_id = #{newsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.skyln.news.pojo.News" >
+    update news
+    set news_create = #{newsCreate,jdbcType=TIMESTAMP},
+      news_update = #{newsUpdate,jdbcType=TIMESTAMP},
+      user_id_cre = #{userIdCre,jdbcType=INTEGER},
+      user_id_upd = #{userIdUpd,jdbcType=INTEGER},
+      column_id = #{columnId,jdbcType=INTEGER}
+    where news_id = #{newsId,jdbcType=INTEGER}
+  </update>
+</mapper>
